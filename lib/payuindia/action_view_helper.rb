@@ -19,10 +19,7 @@ module PayuIndia #:nodoc:
     #       :html => { :id => 'payment-form' } %>
 
     def payment_form_for_payu(key, salt, options = {})
-      if !options.is_a?(Hash) || !key.is_a?(String) || !salt.is_a?(String)
-        concat("Something Wrong! params order -> key (String), salt (String), options (Hash) ")
-        nil
-      else
+      if options.is_a?(Hash) || key.is_a?(String) || salt.is_a?(String)
         form_options = options.delete(:html) || {}
         service = PayuIndia::Helper.new(key, salt, options)
         result = []
@@ -37,11 +34,13 @@ module PayuIndia #:nodoc:
 
         result << '<input type=submit value=" Pay with PayU ">'
         result << '</form>'
-        result= result.join("\n")
+        result = result.join("\n")
 
         concat(result.respond_to?(:html_safe) ? result.html_safe : result)
-        nil
+      else
+        concat("Something Wrong! params order -> key (String), salt (String), options (Hash) ")
       end
+      nil
     end
   end
 end
