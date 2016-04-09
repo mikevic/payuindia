@@ -32,7 +32,7 @@ module PayuIndia #:nodoc:
           result << hidden_field_tag(field, value)
         end
 
-        result << '<input type=submit value=" Pay with PayU ">'
+        result << '<input type=submit value=" Online Payment " class="btn btn-success">'
         result << '</form>'
         result = result.join("\n")
 
